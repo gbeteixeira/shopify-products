@@ -1,5 +1,5 @@
 ```code 
-project-root/
+backend/
 ├── src/
 │   ├── _errors_/
 │   │   ├── index.ts
