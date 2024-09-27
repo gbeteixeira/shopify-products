@@ -1,3 +1,4 @@
+```code 
 project-root/
 ├── src/
 │   ├── _errors_/
@@ -29,3 +30,4 @@ project-root/
 ├── package.json
 ├── tsconfig.json
 └── README.md
+```
