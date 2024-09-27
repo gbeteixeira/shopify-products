@@ -1,0 +1,37 @@
+### Atualiza produtos (lê todos do arquivo .txt)
+GET http://localhost:3333/products/update-all
+Content-Type: application/json
+
+### Lista todos produtos - sem filtro
+GET http://localhost:3333/products
+Content-Type: application/json
+
+### Lista todos produtos - filtro: (filtro text)
+GET http://localhost:3333/products?filter[text]=kit
+Content-Type: application/json
+
+### Lista todos produtos - filtro: (min + max price)
+GET http://localhost:3333/products?filter[minPrice]=99&filter[maxPrice]=100
+Content-Type: application/json
+
+### Lista todos produtos - filtro: (createdAtStart + createdAtEnd)
+GET http://localhost:3333/products?filter[createdAtStart]=2023-09-20&filter[createdAtEnd]=2023-09-21
+Content-Type: application/json
+
+### Lista todos produtos - filtro: (updatedAtStart + updatedAtEnd)
+GET http://localhost:3333/products?filter[updatedAtStart]=2024-09-20T19:00:06.000Z&filter[updatedAtEnd]=2024-09-20T19:00:06.000Z
+Content-Type: application/json
+
+### Lista todos produtos - filtro: (publishedAtStart + publishedAtEnd)
+GET http://localhost:3333/products?filter[publishedAtStart]=2023-09-22&filter[publishedAtEnd]=2023-09-23
+Content-Type: application/json
+
+### Lista todos produtos - filtro: (status)
+GET http://localhost:3333/products?filter[updatedAtStart]=2023-09-21&filter[updatedAtEnd]=2023-09-23
+Content-Type: application/json
+
+### Ordenação
+
+### Lista todos produtos - sem filtro
+GET http://localhost:3333/products?sort[publishedAt]=desc
+Content-Type: application/json

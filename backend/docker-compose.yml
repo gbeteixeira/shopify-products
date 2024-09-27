@@ -1,0 +1,35 @@
+services:
+  mongo:
+    image: mongo:7.0.4
+    container_name: mongo
+    restart: unless-stopped
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=$DB_USERNAME
+      - MONGO_INITDB_ROOT_PASSWORD=$DB_PASSWORD
+      - MONGO_INITDB_DATABASE=$DB_DATABASE
+    ports:
+      - ${DB_PORT-27017}:27017
+    env_file: .env
+    volumes:
+      - ./data/mongodata:/data/db
+      - dbdata:/data/db
+    networks:
+      - shopify-net
+
+  backend:
+    container_name: shopify-backend
+    build:
+      context: .
+    image: gbetxr/backend:v1
+    env_file: 
+      - ./.env
+    ports:
+      - ${APP_PORT-3333}:${APP_PORT-3333}
+    networks:
+      - shopify-net
+
+volumes:
+  dbdata:
+
+networks:
+    shopify-net:  
