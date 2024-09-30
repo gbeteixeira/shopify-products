@@ -1,16 +1,15 @@
 "use client"
 
 import { useState, useRef, useEffect } from 'react'
-import Image from 'next/image'
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter } from "@/components/ui/card"
-import { Calendar, Clock, Globe, ChevronLeft, ChevronRight } from "lucide-react"
+import { Calendar, Clock, Globe } from "lucide-react"
 import dayjs from 'dayjs'
-import { motion, AnimatePresence } from 'framer-motion'
 import { useSwipeable } from 'react-swipeable'
 
 import relativeTime from 'dayjs/plugin/relativeTime'
+import { BlurImage } from './blur-image'
 require('dayjs/locale/pt-br')
 
 dayjs.extend(relativeTime)
@@ -71,16 +70,13 @@ export default function ProductDetail({ product }: ProductProps) {
   const { images, price_range, title, vendor, tags, url, created_at, updated_at, published_at } = product
   const tagList = tags.split(', ').filter(val => val.length > 0)
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
-  const [isImageLoading, setIsImageLoading] = useState(false)
   const tagScrollRef = useRef<HTMLDivElement>(null)
 
   const nextImage = () => {
-    setIsImageLoading(true)
     setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length)
   }
 
   const prevImage = () => {
-    setIsImageLoading(true)
     setCurrentImageIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length)
   }
 
@@ -120,30 +116,16 @@ export default function ProductDetail({ product }: ProductProps) {
           <Clock className="h-3 w-3 text-muted-foreground" />
           <span>Atualizado: {formatDate(updated_at)}</span>
         </div>
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={currentImageIndex}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.5 }}
-            className="absolute inset-0"
-          >
-            <Image
-              src={images[currentImageIndex].src}
-              alt={images[currentImageIndex].alt || title}
-              layout="fill"
-              objectFit="contain"
-              className="rounded-t-lg"
-              onLoadingComplete={() => setIsImageLoading(false)}
-            />
-            {isImageLoading && (
-              <div className="absolute inset-0 flex items-center justify-center bg-background/50">
-                <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
-              </div>
-            )}
-          </motion.div>
-        </AnimatePresence>
+        
+        <BlurImage
+          src={images[currentImageIndex].src}
+          alt={images[currentImageIndex].alt || title}
+          object-fit="contain"
+          className="rounded-t-lg"
+          fill
+          priority
+          sizes="100%"
+        />
       </div>
       <div className="overflow-x-auto whitespace-nowrap p-2 bg-muted">
           {images.map((img, index) => (
@@ -154,12 +136,12 @@ export default function ProductDetail({ product }: ProductProps) {
                 index === currentImageIndex ? 'border-primary' : 'border-transparent'
               }`}
             >
-              <Image
+              <BlurImage
                 src={img.src}
                 alt={img.alt || `Product image ${index + 1}`}
                 width={64}
                 height={64}
-                objectFit="cover"
+                object-fit="cover"
                 className='w-full h-full'
               />
             </button>
