@@ -61,7 +61,7 @@ export class ProductsService {
 
       await this.updateAllProductsFromFile();
 
-      this.logger.debug(`[SCHEDULE] - Atualização diária dos produtos concluíd..`)
+      this.logger.debug(`[SCHEDULE] - Atualização diária dos produtos concluída..`)
     });
   }
 

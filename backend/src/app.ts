@@ -3,6 +3,7 @@ import connectDB from './config/database';
 import { errorHandler } from './utils/error-handler';
 import { Logger } from './utils/logger';
 import productsModule from './modules/products/products-module';
+import cors from '@fastify/cors'
 
 export const fastifyApp = fastify()
 const logger: Logger = new Logger(`APP LOGGER`);
@@ -11,6 +12,14 @@ fastifyApp.setErrorHandler(errorHandler)
 
 // Conectar ao banco de dados
 connectDB();
+
+// cors
+fastifyApp.register(cors, {
+    origin: '*',
+    allowedHeaders: [
+    '*',
+    ],
+})
 
 // Registrar módulos
 fastifyApp.register(productsModule);

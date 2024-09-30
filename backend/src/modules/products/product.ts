@@ -47,21 +47,10 @@ const productMongooseSchema = new Schema({
     src: { type: String, required: true },
     variant_ids: [{ type: Number }]
   }],
-  image: {
-    id: { type: Number, required: true },
-    product_id: { type: Number, required: true },
-    position: { type: Number, required: true },
-    created_at: { type: Date, required: true },
-    updated_at: { type: Date, required: true },
-    alt: { type: String },
-    width: { type: Number, required: true },
-    height: { type: Number, required: true },
-    src: { type: String, required: true },
-    variant_ids: [{ type: Number }]
-  },
   price_range: {
     min: { type: Number, required: true },
-    max: { type: Number, required: true }
+    max: { type: Number, required: true },
+    currency: { type: String, required: true }
   }
 });
 
@@ -77,6 +66,7 @@ export interface IProduct extends Document, Product {
   price_range: {
     min: number;
     max: number;
+    currency: string
   };
 }
 

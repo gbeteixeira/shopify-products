@@ -51,9 +51,9 @@ export class ProductsRepository {
 
     // Filtro por status
     if (filter?.status) {
-      query.status = filter.status;
+      query['status'] = { $eq: filter.status };
     } else {
-      query.status = ProductStatus.PUBLISHED
+      query['status'] = { $eq: ProductStatus.PUBLISHED };
     }
 
     // Filtro por data de criação (createdAt)

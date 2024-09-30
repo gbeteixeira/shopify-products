@@ -70,7 +70,8 @@ export function calculatePriceRange(variants: Product['variants']) {
   const prices = variants.map(v => parseFloat(v.price));
   return {
     min: Math.min(...prices),
-    max: Math.max(...prices)
+    max: Math.max(...prices),
+    currency: variants[0].price_currency
   };
 }
 
@@ -150,9 +151,10 @@ export type ProductFilter = z.infer<typeof ProductFilterSchema>;
 
 export const ProductSortSchema = z.object({
   createdAt: z.enum(['asc', 'desc']).optional(),
+  updatedAt: z.enum(['asc', 'desc']).optional(),
   publishedAt: z.enum(['asc', 'desc']).optional(),
-  minPrice: z.enum(['asc', 'desc']).optional(),
-  maxPrice: z.enum(['asc', 'desc']).optional(),
+  'price_range.min': z.enum(['asc', 'desc']).optional(),
+  'price_range.max': z.enum(['asc', 'desc']).optional(),
 })
 
 export const ProductQuerySchema = z.object({

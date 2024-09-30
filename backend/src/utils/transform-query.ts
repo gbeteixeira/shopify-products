@@ -19,11 +19,7 @@ export default function transformQuery(query: URLSearchParams) {
       const filterKey = key.slice(7, -1); // remove 'filter[' e ']'
 
       transformed.filter[filterKey] = value
-    }
-  }
-
-  for (const [key, value] of query.entries()) {
-    if (key.startsWith('sort[')) {
+    } else if (key.startsWith('sort[')) {
       const sortKey = key.slice(5, -1); // remove 'sort[' e ']'
 
       transformed.sort[sortKey] = value as 'asc' | 'desc'
